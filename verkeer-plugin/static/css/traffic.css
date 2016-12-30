@@ -1,0 +1,152 @@
+.route_to_info {
+
+}
+.route_back_info {
+
+}
+.cellContent {
+    text-align: center;
+}
+.roadCell {
+    max-width: 10%;
+}
+.locCell {
+    width: 35%;
+}
+.detailsCell {
+    width: 35%;
+}
+.delayCell {
+    width: 10%;
+}
+.distanceCell {
+    width: 10%;
+}
+
+.locFlitsCell {
+    width: 45%;
+}
+.hmpFlitsCell {
+    width: 45%;
+}
+.locTrajectCell {
+    width: 45%;
+}
+.detailTrajectCell {
+    width: 45%;
+}
+.road {
+    width: 60%;
+    height: 10%;
+
+    text-align: center;
+    font-weight: bold;
+    font-size: 100%;
+    border-radius: 2px;
+}
+
+.nRoad {
+    background-color: #FFB90F;
+    color: #474747;
+}
+
+.aRoad {
+    background-color: red;
+    color: white;
+}
+
+.eRoad {
+    background-color: green;
+    color: white;
+}
+
+.place {
+    background-color: darkblue;
+    color: white;
+}
+
+.routeinfo_to {
+    width: 50%;
+    float: left;
+    overflow: auto;
+}
+
+.routeinfo_back {
+    width: 50%;
+    overflow: auto;
+}
+
+.delay_high {
+    font-weight: bold;
+    color: red;
+}
+
+.delay_medium {
+    font-weight: bold;
+    color: orange;
+}
+
+/* Style the list */
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {
+    float: left;
+}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class ul.tab li a:focus, .active {background-color: #ccc;}*/
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    overflow: auto;
+}
+
+.tabcontent {
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+@-webkit-keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

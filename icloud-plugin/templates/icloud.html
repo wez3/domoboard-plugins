@@ -1,0 +1,74 @@
+<link href="static/css/icloud.css" rel="stylesheet" type="text/css"/>
+<div class="col-md-6 col-sm-6 col-xs-12">
+  <div class="x_panel">
+  <div class="x_title">
+      <h2>iCloud calendar</h2>
+      <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+      </ul>
+      <div class="clearfix"></div>
+  </div>
+  <div id="icloud">
+     <table id='calendar' class="table">
+	<thead>
+	    <tr>
+		<th>Day</th>
+		<th>Period</th>
+		<th>Event</th>
+	    </tr>
+	</thead>
+	 <tbody id="calendarbody">
+	 </tbody>
+    </table>
+   </div>
+   </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+	function rewriteCalendarInfo() {
+	    var d = new Date();
+        var weekday = new Array(7);
+        weekday[0]=  "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+        var day = weekday[d.getDay()];
+		var table = document.getElementById('calendar').getElementsByTagName('tbody')[0];
+           	// Auto update display data divs
+            	url = "/api?custom=icloud";
+		var lastday = 0;
+		requestAPI(url, function(d){
+		    data = JSON.parse(d);
+		$("#calendarbody tr").remove();
+		$.each( data, function( i, obj ) {
+			var row = table.insertRow(table.rows.length);
+			var celDay = row.insertCell(0);
+			var celStart = row.insertCell(1);
+			var celEvent = row.insertCell(2);
+			if (lastday != obj.day) {
+				celDay.innerHTML = obj.day;
+				lastday = obj.day;
+			}			
+			celStart.innerHTML = obj.startTime + ' - ' + obj.endTime;
+			celEvent.innerHTML = obj.event;
+			if (obj.day == day) {
+			    row.className = 'today';
+            }
+		});
+			    });
+		
+        }
+        rewriteCalendarInfo();
+        setInterval(rewriteCalendarInfo,9000);
+});
+</script>
