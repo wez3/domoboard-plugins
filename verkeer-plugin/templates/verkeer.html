@@ -1,0 +1,193 @@
+<link href="static/css/traffic.css" rel="stylesheet" type="text/css"/>
+ <div class="row">
+     <div class="x_panel">
+        <div class="x_title">
+            <h2>Traffic Summary</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
+                            class="fa fa-wrench"></i></a>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <ul class="tab">
+            <li><a href="javascript:void(0)" id="defaultOpen" class="tablinks" onclick="openCat(event, 'Flitsers')">Flitsers</a>
+            </li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCat(event, 'Files')">Files</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCat(event, 'Trajecten')">Trajecten</a></li>
+        </ul>
+        <div id="flitsmeister">
+            <div id="Flitsers" class="tabcontent">
+                <h2>Flitsers</h2>
+                <table id='flitsTable' class="table">
+                    <thead>
+                    <tr>
+                        <th class="roadCell cellContent">Road</th>
+                        <th class="locFlitsCell cellContent">Location</th>
+                        <th class="hmpFlitsCell cellContent">HMP</th>
+                    </tr>
+                    </thead>
+                    <tbody id="flitsbody">
+                    </tbody>
+                </table>
+            </div>
+            <div id="Files" class="tabcontent">
+                <h2>Files</h2>
+                <table id="filesTable" class="table">
+                    <thead>
+                    <tr>
+                        <th class="roadCell cellContent">Road</th>
+                        <th class="locCell cellContent">Location</th>
+                        <th class="detailsCell cellContent">Details</th>
+                        <th class="delayCell cellContent">Delay</th>
+                        <th class="distanceCell cellContent">Distance</th>
+                    </tr>
+                    </thead>
+                    <tbody id="filesbody">
+                    </tbody>
+                </table>
+            </div>
+            <div id="Trajecten" class="tabcontent">
+                <h2>Trajecten</h2>
+                <table id="trajectTable" class="table">
+                    <thead>
+                    <tr>
+                        <th class="roadCell cellContent">Road</th>
+                        <th class="locTrajectCell cellContent">Location</th>
+                        <th class="detailTrajectCell cellContent">Details</th>
+                    </tr>
+                    </thead>
+                    <tbody id="trajectbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    function openCat(evt, catName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(catName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+String.prototype.beginsWith = function (string) {
+  return(this.indexOf(string) === 0);
+};
+ 
+    function addCatRoadClass(road, rowid, nameID) {
+        // Check Road for correct class
+        if (road.beginsWith('A')) {
+            $("#" + rowid).addClass(' aRoad');
+        } else if (road.beginsWith('N')) {
+            $("#" + rowid).addClass(' nRoad');
+        } else if (road.beginsWith('E')) {
+            $("#" + rowid).addClass(' eRoad');
+        } else {
+            $("#" + rowid).addClass(' place');
+        }
+    }
+    function dec2hex(dec) {
+        return dec.toString(16)
+    }
+    function generateId(road) {
+        var len = 20;
+        var arr = new Uint8Array((len || 40) / 2)
+        var result = '';
+        window.crypto.getRandomValues(arr)
+        result = Array.from(arr).map(dec2hex).join('')
+        result = result + '_' + road;
+        return result
+    }
+    $(document).ready(function () {
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+
+        function rewriteFlitsmeisterInfo() {
+            var flitsTable = document.getElementById('flitsTable').getElementsByTagName('tbody')[0];
+            var trajectTable = document.getElementById('trajectTable').getElementsByTagName('tbody')[0];
+            var filesTable = document.getElementById('filesTable').getElementsByTagName('tbody')[0];
+            // Auto update display data divs
+            url = "/api?custom=anwb";
+            requestAPI(url, function(d){
+                json = JSON.parse(d);
+            $("#flitsbody tr").remove();
+            $("#trajectbody tr").remove();
+            $("#filesbody tr").remove();
+            for (i in json.traffic) {
+                for (a in json.traffic[i].roadWorks) {
+                    var row = trajectTable.insertRow(trajectTable.rows.length);
+                    var celRoad = row.insertCell(0);
+                    var celLocation = row.insertCell(1);
+                    var celDetails = row.insertCell(2);
+                    var rowid = generateId(json.traffic[i].road);
+                    celRoad.innerHTML = '<div id="' + rowid + '" class="road">' + json.traffic[i]['road'] + '</div>';
+                    addCatRoadClass(json.traffic[i]['road'], rowid, celRoad);
+                    if (json.traffic[i].roadWorks[a].reason) {
+                        celDetails.innerHTML = json.traffic[i].roadWorks[a].reason;
+                    } else {
+                        celDetails.innerHTML = json.traffic[i].roadWorks[a].description;
+                    }
+                    celLocation.innerHTML = json.traffic[i].roadWorks[a].location;
+                }
+                for (a in json.traffic[i].trafficJams) {
+                    var row = filesTable.insertRow(filesTable.rows.length);
+                    var celRoad = row.insertCell(0);
+                    var celLocation = row.insertCell(1)
+                    var celDetails = row.insertCell(2);
+                    var celDelay = row.insertCell(3);
+                    var celLength = row.insertCell(4);
+                    var rowid = generateId(json.traffic[i].road);
+                    celRoad.innerHTML = '<div id="' + rowid + '" class="road">' + json.traffic[i]['road'] + '</div>';
+                    addCatRoadClass(json.traffic[i]['road'], rowid, celRoad);
+                    celDelay.innerHTML = json.traffic[i].trafficJams[a].delay;
+                    celLength.innerHTML = json.traffic[i].trafficJams[a].distance;
+                    if (json.traffic[i].trafficJams[a].reason) {
+                        celDetails.innerHTML = json.traffic[i].trafficJams[a].reason;
+                    } else {
+                        celDetails.innerHTML = json.traffic[i].trafficJams[a].description;
+                    }
+                    celLocation.innerHTML = json.traffic[i].trafficJams[a].location;
+                }
+                for (a in json.traffic[i].radars) {
+                    var row = flitsTable.insertRow(flitsTable.rows.length);
+                    var celRoad = row.insertCell(0);
+                    var celLocation = row.insertCell(1);
+                    var celDetails = row.insertCell(2);
+                    var rowid = generateId(json.traffic[i].road);
+                    celRoad.innerHTML = '<div id="' + rowid + '" class="road">' + json.traffic[i]['road'] + '</div>';
+                    addCatRoadClass(json.traffic[i]['road'], rowid, celRoad);
+                    if (json.traffic[i].radars[a].reason) {
+                        celDetails.innerHTML = json.traffic[i].radars[a].reason;
+                    } else {
+                        celDetails.innerHTML = json.traffic[i].radars[a].description;
+                    }
+                    celLocation.innerHTML = json.traffic[i].radars[a].location;
+                }
+            }
+            
+            });
+            
+        }
+        rewriteFlitsmeisterInfo();
+        setInterval(rewriteFlitsmeisterInfo, 9000);
+    });
+</script>
