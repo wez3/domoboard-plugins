@@ -97,6 +97,7 @@
         </div>
         <div id="flitsmeister">
             <div id="traffic" class="tabcontent">
+              <div id="traffic_radar" class="hide">
                 <h2>Flitsers</h2>
                 <table id='flitsTable' class="table">
                     <thead>
@@ -109,6 +110,8 @@
                     <tbody id="flitsbody">
                     </tbody>
                 </table>
+              </div>
+              <div id="traffic_files" class="hide">
                 <h2>Files</h2>
                 <table id="filesTable" class="table">
                     <thead>
@@ -123,6 +126,8 @@
                     <tbody id="filesbody">
                     </tbody>
                 </table>
+              </div>
+              <div id="traffic_traject" class="hide">
                 <h2>Traject Controles</h2>
                 <table id="trajectTable" class="table">
                     <thead>
@@ -135,6 +140,7 @@
                     <tbody id="trajectbody">
                     </tbody>
                 </table>
+              </div>
             </div>
         </div>
         <div id="google">
@@ -173,7 +179,7 @@
 String.prototype.beginsWith = function (string) {
   return(this.indexOf(string) === 0);
 };
- 
+
     function addCatRoadClass(road, rowid) {
         // Check Road for correct class
         if (road.beginsWith('A')) {
@@ -189,8 +195,16 @@ String.prototype.beginsWith = function (string) {
     function dec2hex(dec) {
         return dec.toString(16)
     }
- 
 
+    function checkEmpty(id) {
+      var tbody = $("#" + id);
+
+      if (tbody.children().length  == 0) {
+        return false
+      } else {
+        return true
+      }
+    }
     function generateId(road) {
         var len = 20;
         var arr = new Uint8Array((len || 40) / 2)
@@ -309,6 +323,15 @@ String.prototype.beginsWith = function (string) {
             var locurl = "https://www.google.com/maps/embed/v1/directions?key=" + googleMapEmbedKey + "&origin=" + json.to["from"] + "&destination=" + json.to["to"];
             iframe.attr('src',locurl);
 
+            if (checkEmpty('flitsbody')) {
+              $('#traffic_radar').addClass('show').removeClass('hide');
+            }
+            if (checkEmpty('filesbody')) {
+              $('#traffic_files').addClass('show').removeClass('hide');
+            }
+            if (checkEmpty('trajectbody')) {
+              $('#traffic_traject').addClass('show').removeClass('hide');
+            }
           });
         }
 
