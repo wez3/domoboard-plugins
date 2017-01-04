@@ -173,7 +173,7 @@ def getData(params={}):
     startGeo = getStartGeo()
     endGeo = getEndGeo()
 
-    if (type(startGeo) is list) and (type(endGeo) is list):
+    if (type(startGeo) is dict) and (type(endGeo) is dict):
         if not 'town' in startGeo['address']:
             try:
                 startGeo['address']['town'] = startGeo['address']['city']
