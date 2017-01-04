@@ -86,6 +86,13 @@
     color: orange;
 }
 
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
 /* Style the list */
 ul.tab {
     list-style-type: none;
