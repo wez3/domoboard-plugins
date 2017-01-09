@@ -1,0 +1,198 @@
+
+.day-row {
+    font-size: 100%
+    font-size: 1.0rem;
+    border-bottom: 1px solid #D7D7D7
+}
+@media only screen and (min-width: 40.063em) {
+    .day-row {
+        position: relative;
+        padding-left: 115px
+    }
+}
+.day-row.has-alert {
+    border-top: 1px solid #D5202A;
+    border-bottom: 1px solid #D5202A;
+    border-left: 3px solid #D5202A
+}
+.day-row.has-blizzard {
+    border-top: 1px solid #0053AE;
+    border-bottom: 1px solid #0053AE;
+    border-left: 3px solid #0053AE
+}
+@media only screen {
+    .day-row .summary {
+        padding-top: 15px
+    }
+}
+@media only screen and (min-width: 40.063em) {
+    .day-row .summary {
+        position: absolute;;
+        top: 0;
+        left: 0;
+        width: 115px;
+        padding-top: 45px;
+        text-align: center
+    }
+}
+@media only screen {
+    .day-row .weekday {
+        font-weight: bold;
+        display: inline-block;
+        float: left
+    }
+}
+@media only screen and (min-width: 40.063em) {
+    .day-row .weekday {
+        font-weight: normal;
+        display: block;
+        float: none
+    }
+}
+@media only screen {
+    .day-row .date {
+        display: inline-block;
+        float: left;
+        padding: 0 5px
+    }
+}
+@media only screen and (min-width: 40.063em) {
+    .day-row .date {
+        display: block;
+        float: none;
+        padding: 5px 0
+    }
+}
+@media only screen {
+    .day-row .temps {
+        display: inline-block;
+        float: right;
+        margin-right: 5px
+    }
+}
+@media only screen and (min-width: 40.063em) {
+    .day-row .temps {
+        display: block;
+        float: none;
+        margin-right: 0
+    }
+}
+.day-row .temps .high {
+    color: #D5202A;
+    font-weight: bold
+}
+.day-row .temps .low {
+    color: #0053AE;
+    font-weight: bold
+}
+.day-row .day,
+.day-row .night {
+    clear: both;
+    position: relative;
+    padding: 15px 5px 15px 75px
+}
+.day-row .day .title,
+.day-row .night .title {
+    margin-bottom: 10px;
+    display: inline-block;
+    height: 14px
+}
+@media only screen {
+    .day-row .day .title,
+    .day-row .night .title {
+        font-weight: normal;
+        float: left
+    }
+    .day-row .day .title .long,
+    .day-row .night .title .long {
+        display: none
+    }
+    .day-row .day .title .short,
+    .day-row .night .title .short {
+        display: inline-block
+    }
+}
+@media only screen and (min-width: 40.063em) {
+    .day-row .day .title,
+    .day-row .night .title {
+        width: 150px;
+        font-weight: bold;
+        float: none
+    }
+    .day-row .day .title .long,
+    .day-row .night .title .long {
+        display: inline-block
+    }
+    .day-row .day .title .short,
+    .day-row .night .title .short {
+        display: none
+    }
+}
+.day-row .day .pop,
+.day-row .night .pop {
+    margin-bottom: 10px;
+    display: inline-block;
+    height: 14px;
+    padding-left: 22px;
+    background-image: url("//icons.wxug.com/i/o/sprite-common-vert.png?v=1.21");
+    background-repeat: no-repeat;
+    background-position: 4px -383px
+}
+@media only screen {
+    .day-row .day .pop,
+    .day-row .night .pop {
+        float: right
+    }
+}
+@media only screen and (min-width: 40.063em) {
+    .day-row .day .pop,
+    .day-row .night .pop {
+        float: none
+    }
+}
+.day-row .day .pop.wet,
+.day-row .night .pop.wet {
+    background-position: 4px -397px
+}
+.day-row .day .pop.snow,
+.day-row .night .pop.snow {
+    background-position: -2px -733px;
+    height: 16px
+}
+.day-row .day .pop.snow.wet,
+.day-row .night .pop.snow.wet {
+    background-position: -2px -750px
+}
+.day-row .day .pop SPAN,
+.day-row .night .pop SPAN {
+    font-weight: bold
+}
+.day-row .day IMG,
+.day-row .night IMG {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    max-width: none
+}
+.day-row .day P,
+.day-row .night P {
+    clear: both;
+    margin: 0
+}
+@media only screen {
+    .day-row .day P,
+    .day-row .night P {
+        font-size: 0.75rem
+    }
+}
+@media only screen and (min-width: 40.063em) {
+    .day-row .day P,
+    .day-row .night P {
+        font-size: 100%;
+    }
+}
+.day-row .night {
+    background-color: #F7F7F7
+}

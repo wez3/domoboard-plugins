@@ -1,0 +1,117 @@
+<link href="static/css/wunderground.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/flatWeatherPlugin.css" rel="stylesheet">
+{% for k, v in blockArray[count]["wunderground"].iteritems() %}
+{% if v[0] == 'forecast' %}
+<div class="col-md-6 col-sm-6 col-xs-12">
+  <div class="x_panel">
+  <div class="x_title">
+      <h2>Wunderground - {{k}} - {{ v[1] }}</h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+  </div>
+  <div id="wunderground">
+    <div id="extended">
+      <div id="extended-forecat_{{count}}"></div>
+    </div>
+  </div>
+  </div>
+</div>
+{% elif v[0] == 'condition' %}
+<div class="col-md-6 col-sm-6 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Condition - {{k}} - {{ v[0] }}</h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div id="weatherdash-{{count}}" style="padding-left:30px;padding-right:30px;padding-top:20px;"></div>
+
+  </div>
+</div>
+
+{% endif %}
+{% endfor %}
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+           	// Auto update display data divs
+            {% for k, v in blockArray[count]["wunderground"].iteritems() %}
+                url = "/api?custom=wunderground&loc={{ v[1] }}&country={{ v[2] }}&action={{v[0]}}";
+                requestAPI(url, function(d){
+                  // forecast text:
+                  _json = JSON.parse(d);
+                  console.log(_json);
+                    if ( $( "#conToday-"  + _json['dateIDToday'] + "_{{count}}").length ) {
+                      console.log('el exists');
+                    } else {
+                      if ("{{v[0]}}" == 'condition') {
+                        var overalDiv = '';
+                        overalDiv = overalDiv + '<div class="flatWeatherPlugin full">';
+                        overalDiv = overalDiv + '<h2>{{v[0]}}</h2>';
+                        overalDiv = overalDiv + '<div class="wiToday">'
+                        overalDiv = overalDiv + '<div class="wiIconGroup">';
+                        overalDiv = overalDiv + '<div class=""><img src="' + _json['conditions']['current_observation'].icon_url + '"></div>';
+                        overalDiv = overalDiv + '<p class="wiText">' + _json['conditions']['current_observation']['icon'] + '</p>';
+                        overalDiv = overalDiv + '</div>';
+                        overalDiv = overalDiv + '<p class="wiTemperature">' + _json['conditions']['current_observation']['dewpoint_c'] + '<sup>°C</sup></p>';
+                        overalDiv = overalDiv + '<div class="wiDetail">';
+                        overalDiv = overalDiv + '<p class="wiDay">'+ _json['conditions']['todayWeekday'] + '</p>';
+                        overalDiv = overalDiv + '   </ul>';
+                        overalDiv = overalDiv + '   <ul class="temp">';
+                        overalDiv = overalDiv + '      <li>Max : ' + _json['conditions']['current_observation']['temp_c'] + '<sup>°C</sup></li>';
+                        overalDiv = overalDiv + '      <li>Min : ' + _json['conditions']['current_observation']['feelslike_c'] + '<sup>°C</sup></li>';
+                        overalDiv = overalDiv + '   </ul>';
+                        overalDiv = overalDiv + '   <ul class="atmosphere">';
+                        overalDiv = overalDiv + '      <li class="wi humidity">' + _json['conditions']['current_observation']['relative_humidity'] + '</li>';
+                        overalDiv = overalDiv + '      <li class="wi wind">' + _json['conditions']['current_observation']['wind_dir'] + ' ' + _json['conditions']['current_observation']['wind_gust_kph'] + ' km/h</li>';
+                        overalDiv = overalDiv + '   </ul>';
+                        overalDiv = overalDiv + '  </div>';
+                        overalDiv = overalDiv + '</div>';
+                        overalDiv = overalDiv + '</div>';
+                        $('#weatherdash-{{count}}').append(overalDiv);
+                      }
+                    }
+                  for (i in _json['forecastSimple']) {
+                      if ( $( "#fctDay-"  + _json['forecastSimple'][i].dateID + "_{{count}}").length ) {
+                        console.log('el exists');
+                      } else {
+                        $('#extended-forecat_{{count}}').append('<div class="day-row" id="fctDay-' + _json['forecastSimple'][i].dateID + '_{{count}}"></div>');
+                      }
+                      var div_sum = '<div class="summary">';
+                      div_sum = div_sum + '<span class="weekday">' + _json['forecastSimple'][i].date.weekday + '</span>';
+                      div_sum = div_sum + '<span class="date">' + _json['forecastSimple'][i].datum + '</span>';
+                      div_sum = div_sum + '<span class="temps">';
+                      div_sum = div_sum + '<span class="high"> '+ _json['forecastSimple'][i].high.celsius + '</span>';
+                      div_sum = div_sum + '<span class="split">|</span>';
+                      div_sum = div_sum + '<span class="low"> '+ _json['forecastSimple'][i].low.celsius + '</span>';
+                      div_sum = div_sum + '°C</span>';
+                      div_sum = div_sum + '</div>';
+                      $('#fctDay-' + _json['forecastSimple'][i].dateID + "_{{count}}").append(div_sum);
+                    }
+                    for (i in _json['forecastTxt']) {
+                      var _div = '<div class="' + _json['forecastTxt'][i].class + '">';
+                      _div = _div + '<img src="' + _json['forecastTxt'][i].icon_url + '">';
+                      _div = _div + '<span class="title">';
+                      _div = _div + '<span class="long">'+  _json['forecastTxt'][i].title + '</span>';
+                      _div = _div + '</span>';
+                      if (_json['forecastTxt'][i].pop > 80) {
+                        _div = _div + '<span class="pop wet"><span>' + _json['forecastTxt'][i].pop + '</span>';
+                      } else {
+                        _div = _div + '<span class="pop"><span>' + _json['forecastTxt'][i].pop + '</span>';
+                      }
+                      _div = _div + '  % Precip. / ';
+                      _div = _div + '<strong>' + _json['forecastTxt'][i]['summary']['qpf_allday'].mm + '</strong> mm'
+                      _div = _div + '</span>';
+                      _div = _div + '<p>' + _json['forecastTxt'][i]['fcttext_metric'] + '</p>';
+                      _div = _div + '</div>';
+                      $('#fctDay-' + _json['forecastTxt'][i].dateID + '_{{count}}').append(_div);
+                    }
+                  });
+            {% endfor %}
+});
+</script>
