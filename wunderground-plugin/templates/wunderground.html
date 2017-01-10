@@ -23,7 +23,7 @@
 <div class="col-md-6 col-sm-6 col-xs-12">
   <div class="x_panel">
     <div class="x_title">
-      <h2>Condition - {{k}} - {{ v[0] }}</h2>
+      <h2>Condition - {{k}} - {{ v[1] }}</h2>
       <ul class="nav navbar-right panel_toolbox">
         <li><a class="close-link"><i class="fa fa-close"></i></a>
         </li>
@@ -52,7 +52,7 @@ $(document).ready(function() {
                       if ("{{v[0]}}" == 'condition') {
                         var overalDiv = '';
                         overalDiv = overalDiv + '<div class="flatWeatherPlugin full">';
-                        overalDiv = overalDiv + '<h2>{{v[0]}}</h2>';
+                        overalDiv = overalDiv + '<h2>{{v[1]}}</h2>';
                         overalDiv = overalDiv + '<div class="wiToday">'
                         overalDiv = overalDiv + '<div class="wiIconGroup">';
                         overalDiv = overalDiv + '<div class=""><img src="' + _json['conditions']['current_observation'].icon_url + '"></div>';
