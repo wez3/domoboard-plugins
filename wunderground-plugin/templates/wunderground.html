@@ -38,10 +38,18 @@
 {% endif %}
 {% endfor %}
 <script type="text/javascript" charset="utf-8">
+function parseHtmlEntities(str) {
+    return str.replace(/&#([0-9]{1,3});/gi, function(match, numStr) {
+        var num = parseInt(numStr, 10); // read num as normal number
+        return String.fromCharCode(num);
+    });
+}
+
 $(document).ready(function() {
            	// Auto update display data divs
             {% for k, v in blockArray[count]["wunderground"].iteritems() %}
-                url = "/api?custom=wunderground&loc={{ v[1] }}&country={{ v[2] }}&action={{v[0]}}";
+                url = "/api?custom=wunderground&loc=" + parseHtmlEntities("{{v[1]}}") + "&country={{ v[2] }}&action={{v[0]}}";
+                console.log(url);
                 requestAPI(url, function(d){
                   // forecast text:
                   _json = JSON.parse(d);
