@@ -8,7 +8,7 @@ This git repository contains all available plugins for Domoboard.
 
 On the settings page Domoboard offers a tab which allows users to install plugins automatically. Using this page plugins from this GitHub page can be installed in just one click.
 
-![alt tag](https://forsec.nl/wp-content/uploads/domoboard_images/domoboard_plugin_install.png)
+![alt tag](https://domoboard.nl/domoboard_images/domoboard_plugin_install.png)
 
 # Manually install plugins
 
