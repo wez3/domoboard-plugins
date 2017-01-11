@@ -1,6 +1,6 @@
 @author=Squandor
 @title=Wunderground
-@version=0.0.3
+@version=0.0.4
 @description=Small plugin which uses the weatherground.com api. you just need an api key and set this in [general_settings][wunderground]
 
 @summary=To use the weather underground plugin you need to have the api set in the general_settings under server. Next you need the following settings on an component:

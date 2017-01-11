@@ -68,7 +68,7 @@ $(document).ready(function() {
                         overalDiv = overalDiv + '</div>';
                         overalDiv = overalDiv + '<p class="wiTemperature">' + _json['conditions']['current_observation']['dewpoint_c'] + '<sup>°C</sup></p>';
                         overalDiv = overalDiv + '<div class="wiDetail">';
-                        overalDiv = overalDiv + '<p class="wiDay">'+ _json['conditions']['todayWeekday'] + '</p>';
+                        overalDiv = overalDiv + '<p class="wiDay">'+ _json['todayWeekday'] + '</p>';
                         overalDiv = overalDiv + '   </ul>';
                         overalDiv = overalDiv + '   <ul class="temp">';
                         overalDiv = overalDiv + '      <li>Max : ' + _json['conditions']['current_observation']['temp_c'] + '<sup>°C</sup></li>';
