@@ -1,0 +1,59 @@
+<link href="static/css/afvalwijzer.css" rel="stylesheet" type="text/css"/>
+{% for k, v in blockArray[count]["afvalwijzer"].iteritems() %}
+<div class="col-md-7 col-sm-6 col-xs-12">
+  <div class="x_panel">
+  <div class="x_title">
+      <h2 id="title_{{count}}">Afvalwijzer - {{ v[1] }} {{ v[2] }}</h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+  </div>
+  <div id="afvalwijzerContainer">
+    <div style="float: left;"id="afvalWijzer_{{count}}"></div>
+    <div style="float: left;min-width: 50%;" id="afvalWijzer_firstDate_{{count}}"></div>
+  </div>
+  <div id="_source"><a href="https://www.mijnafvalwijzer.nl">Source: mijnafvalwijzer.nl</a></div>
+  </div>
+</div>
+{% endfor %}
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+  	// Auto update display data divs
+  {% for k, v in blockArray[count]["afvalwijzer"].iteritems() %}
+      url = "/api?custom=afvalwijzer&zipcode={{ v[1] }}&housenr={{ v[2] }}";
+      requestAPI(url, function(d){
+        // forecast text:
+        _json = JSON.parse(d);
+        if ('error' in _json['month'][0]) {
+          $('#title_{{count}}').html('Error: ' + _json['month'][0]['message']);
+        } else {
+            var _monthDiv = '<div id="' + _json['month'][0]['month-text'] + '"><h2 class="bold">' +  _json['month'][0]['month-text'] + '</h2>';
+
+            for (ob in _json['month'][0]['result']) {
+              if (_json['month'][0]['result'][ob]['bold'] == 'bold') {
+                var _firstDate = '<div id="' + _json['month'][0]['month-text'] + '_firstDate"><h2 class="bold">First Date:</h2>';
+                _firstDate = _firstDate + '<div class="day">';
+                _firstDate = _firstDate + '<img class="' + _json['month'][0]['result'][ob]['class'] + '">';
+                _firstDate = _firstDate + '<p class="date">' + _json['month'][0]['result'][ob]['date']
+                _firstDate = _firstDate + '<span class="desc">' + _json['month'][0]['result'][ob]['desc'] + '</span>';
+                _firstDate = _firstDate + '</p>';
+                _firstDate = _firstDate + '</div>';
+                _firstDate = _firstDate + '</div>';
+                $('#afvalWijzer_firstDate_{{count}}').append(_firstDate);
+              }
+                _monthDiv = _monthDiv + '<div class="day">';
+                _monthDiv = _monthDiv + '<img class="' + _json['month'][0]['result'][ob]['class'] + '">';
+                _monthDiv = _monthDiv + '<p class="date ' + _json['month'][0]['result'][ob]['bold'] + '">' + _json['month'][0]['result'][ob]['date']
+                _monthDiv = _monthDiv + '<span class="desc  ' + _json['month'][0]['result'][ob]['bold'] + '">' + _json['month'][0]['result'][ob]['desc'] + '</span>';
+                _monthDiv = _monthDiv + '</p>';
+                _monthDiv = _monthDiv + '</div>';
+            }
+            _monthDiv = _monthDiv + '</div>';
+            $('#afvalWijzer_{{count}}').append(_monthDiv);
+          }
+        });
+  {% endfor %}
+});
+</script>

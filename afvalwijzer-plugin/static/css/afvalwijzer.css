@@ -1,0 +1,69 @@
+.date {
+  display: block;
+  font-weight: bold;
+  font-size: 120%;
+
+}
+
+.day {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.desc{
+  display: block;
+  font-weight: normal;
+  font-size: 80%;
+}
+.desc-today {
+  display: block;
+  font-weight: normal;
+  font-size: 100%;
+}
+
+.gft {
+  content: url(/static/images/gft_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.plastic {
+  content: url(/static/images/plastic_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
+.gkbp {
+  content: url(/static/images/gkbp_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.restafval {
+  content: url(/static/images/restafval_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+#_source {
+  display: block;
+  position: absolute;
+  padding-right: 5px;
+  bottom: 0;
+  right: 0
+}
