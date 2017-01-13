@@ -56,12 +56,13 @@ def createForecast(data):
 def getData(params={}):
     config = api.getConfig()
     _api_key = config['general_settings']['wunderground']['api']
+    _language = config['general_settings']['wunderground']['language']
     data = {}
     if params['action'] == 'condition':
-        _url = "http://api.wunderground.com/api/" + _api_key + "/conditions/q/" + params['country'] + "/" + params['loc'] + ".json"
+        _url = "http://api.wunderground.com/api/" + _api_key + "/conditions/lang:" + _language + "/q/" + params['country'] + "/" + params['loc'] + ".json"
         data['conditions'] = createCondition(requests.get(_url).text)
     elif params['action'] == 'forecast':
-        _url = "http://api.wunderground.com/api/" + _api_key + "/forecast/q/" + params['country'] + "/" + params['loc'] + ".json"
+        _url = "http://api.wunderground.com/api/" + _api_key + "/forecast/lang:" + _language + "/q/" + params['country'] + "/" + params['loc'] + ".json"
         data['forecastTxt'], data['forecastSimple'] = createForecast(requests.get(_url).text)
     data['dateIDToday'] = datetime.datetime.strptime(str(datetime.date.today()+timedelta(days=int(1) -1)), "%Y-%m-%d").strftime('%Y%m%d')
     data['todayWeekday'] = datetime.datetime.strptime(str(datetime.date.today()+timedelta(days=int(1) -1)), "%Y-%m-%d").strftime('%A')
