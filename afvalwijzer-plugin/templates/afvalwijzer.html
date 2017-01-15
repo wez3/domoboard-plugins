@@ -11,7 +11,7 @@
       <div class="clearfix"></div>
   </div>
   <div id="afvalwijzerContainer">
-    <div style="float: left;"id="afvalWijzer_{{count}}"></div>
+    <div style="float: left;min-width: 50%;" id="afvalWijzer_{{count}}"></div>
     <div style="float: left;min-width: 50%;" id="afvalWijzer_firstDate_{{count}}"></div>
   </div>
   <div id="_source"><a href="https://www.mijnafvalwijzer.nl">Source: mijnafvalwijzer.nl</a></div>
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
             for (ob in _json['month'][0]['result']) {
               if (_json['month'][0]['result'][ob]['bold'] == 'bold') {
-                var _firstDate = '<div id="' + _json['month'][0]['month-text'] + '_firstDate"><h2 class="bold">Eerst volgende:</h2>';
+                var _firstDate = '<div id="' + _json['month'][0]['month-text'] + '_firstDate"><h2 class="bold">First Date:</h2>';
                 _firstDate = _firstDate + '<div class="day">';
                 _firstDate = _firstDate + '<img class="' + _json['month'][0]['result'][ob]['class'] + '">';
                 _firstDate = _firstDate + '<p class="date">' + _json['month'][0]['result'][ob]['date']
