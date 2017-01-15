@@ -33,7 +33,7 @@ $(document).ready(function() {
 
             for (ob in _json['month'][0]['result']) {
               if (_json['month'][0]['result'][ob]['bold'] == 'bold') {
-                var _firstDate = '<div id="' + _json['month'][0]['month-text'] + '_firstDate"><h2 class="bold">First Date:</h2>';
+                var _firstDate = '<div id="' + _json['month'][0]['month-text'] + '_firstDate"><h2 class="bold">Eerst volgende:</h2>';
                 _firstDate = _firstDate + '<div class="day">';
                 _firstDate = _firstDate + '<img class="' + _json['month'][0]['result'][ob]['class'] + '">';
                 _firstDate = _firstDate + '<p class="date">' + _json['month'][0]['result'][ob]['date']
