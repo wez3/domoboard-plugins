@@ -1,6 +1,6 @@
 <link href="static/css/afvalwijzer.css" rel="stylesheet" type="text/css"/>
 {% for k, v in blockArray[count]["afvalwijzer"].iteritems() %}
-<div class="col-md-7 col-sm-6 col-xs-12">
+<div class="row">
   <div class="x_panel">
   <div class="x_title">
       <h2 id="title_{{count}}">Afvalwijzer - {{ v[1] }} {{ v[2] }}</h2>
@@ -11,7 +11,7 @@
       <div class="clearfix"></div>
   </div>
   <div id="afvalwijzerContainer">
-    <div style="float: left;"id="afvalWijzer_{{count}}"></div>
+    <div style="float: left;min-width: 50%;" id="afvalWijzer_{{count}}"></div>
     <div style="float: left;min-width: 50%;" id="afvalWijzer_firstDate_{{count}}"></div>
   </div>
   <div id="_source"><a href="https://www.mijnafvalwijzer.nl">Source: mijnafvalwijzer.nl</a></div>

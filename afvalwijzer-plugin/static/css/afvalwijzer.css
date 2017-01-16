@@ -21,8 +21,8 @@
   font-size: 100%;
 }
 
-.gft {
-  content: url(/static/images/gft_80.png);
+.afvalstoffenheffing {
+  content: url(/static/images/afvalstoffenheffing_80.png);
   max-width: 50px;
   max-height: auto;
   display: block;
@@ -30,13 +30,13 @@
   margin-right: 10px;
 }
 
-.plastic {
-  content: url(/static/images/plastic_80.png);
+.gft {
+  content: url(/static/images/gft_80.png);
   max-width: 50px;
   max-height: auto;
   display: block;
   float: left;
-margin-right: 10px;
+  margin-right: 10px;
 }
 
 .gkbp {
@@ -48,8 +48,134 @@ margin-right: 10px;
   margin-right: 10px;
 }
 
+.glas {
+  content: url(/static/images/glas_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.grofvuil {
+  content: url(/static/images/grofvuil_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.kca {
+  content: url(/static/images/kca_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
+.kerstbomen {
+  content: url(/static/images/kerstbomen_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
+.kringloop {
+  content: url(/static/images/kringloop_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
+.luiers {
+  content: url(/static/images/luiers_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
+.metaal {
+  content: url(/static/images/metaal_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
+.milieustraat {
+  content: url(/static/images/milieustraat_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
+.papier {
+  content: url(/static/images/papier_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
+.plastic {
+  content: url(/static/images/plastic_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
 .restafval {
   content: url(/static/images/restafval_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.restgft {
+  content: url(/static/images/restgft_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.takken {
+  content: url(/static/images/takken_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+margin-right: 10px;
+}
+
+.textiel {
+  content: url(/static/images/textiel_80.png);
+  max-width: 50px;
+  max-height: auto;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.vet {
+  content: url(/static/images/vet_80.png);
   max-width: 50px;
   max-height: auto;
   display: block;
