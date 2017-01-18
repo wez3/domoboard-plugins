@@ -1,7 +1,7 @@
 <div class="col-md-6 col-sm-6 col-xs-12">
   <div class="x_panel">
     <div class="x_title">
-      <h2 id="s_title_{{ count }}">Block</h2>
+      <h2 id="s_title_block_{{ count }}">Block</h2>
       <ul class="nav navbar-right panel_toolbox">
         <li><a class="close-link"><i class="fa fa-close"></i></a>
         </li>
@@ -12,7 +12,7 @@
       <br>
       {% for k, v in blockArray[count]["block"].iteritems() %}
         {% if v[0] %}
-          <script> $('#s_title_{{ count }}').html("{{ v[0] }}");</script>
+          <script> $('#s_title_block_{{ count }}').html("{{ v[0] }}");</script>
         {% endif %}
       <form class="form-horizontal form-label-left" style="width: 100%; height: 100%; ">
         <div class="form-group" style="">	
