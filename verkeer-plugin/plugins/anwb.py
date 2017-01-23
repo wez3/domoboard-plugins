@@ -12,7 +12,7 @@ import modules.api as api
 
 def init():
     global startGeo, endGeo
-    startGeo, endGeo = None, None
+    startGeo, endGeo = {}, {}
     api.addToApi('anwb', 'anwb', 'getData')
     api.addToApi('verkeer', 'anwb', 'getData')
     return 'hello'
@@ -25,24 +25,30 @@ def geocode(adres):
     except IndexError:
         return "Error in creating the location from address, maybe an typo in you're address?"
 
-def setStartGeo(s):
+def setStartGeo(adres, s):
     global startGeo
-    startGeo = s
+    startGeo[adres] = s
 
 
-def setEndGeo(e):
+def setEndGeo(adres, e):
     global endGeo
-    endGeo = e
+    endGeo[adres] = e
 
 
-def getStartGeo():
+def getStartGeo(adres):
     global startGeo
-    return startGeo
+    if adres in startGeo:
+        return startGeo[adres]
+    else:
+        return None
 
 
-def getEndGeo():
+def getEndGeo(adres):
     global endGeo
-    return endGeo
+    if adres in endGeo:
+        return endGeo[adres]
+    else:
+        return None
 
 
 def convertSecToMin(s):
@@ -161,17 +167,17 @@ def generateInfo(json_code):
 
 def getData(params={}):
     config = api.getConfig()
-    start = config['general_settings']['anwb']['startPoint']
-    end = config['general_settings']['anwb']['endPoint']
+    start = params['start']
+    end = params['end']
     route = {}
 
-    if getStartGeo() == None:
-        setStartGeo(geocode(start))
-    if getEndGeo() == None:
-        setEndGeo(geocode(end))
+    if getStartGeo(start) == None:
+        setStartGeo(start, geocode(start))
+    if getEndGeo(end) == None:
+        setEndGeo(end, geocode(end))
 
-    startGeo = getStartGeo()
-    endGeo = getEndGeo()
+    startGeo = getStartGeo(start)
+    endGeo = getEndGeo(end)
 
     if (type(startGeo) is dict) and (type(endGeo) is dict):
         if not 'town' in startGeo['address']:
@@ -193,8 +199,8 @@ def getData(params={}):
         if not 'road' in endGeo['address']:
             endGeo['address']['road'] = endGeo['address']['pedestrian']
 
-        setStartGeo(startGeo)
-        setEndGeo(endGeo)
+        setStartGeo(start, startGeo)
+        setEndGeo(end, endGeo)
         fromAddress = startGeo['address']['road'] + ' ' + startGeo['address']['house_number'] + ',' + startGeo['address'][
             'postcode'] + ',' + startGeo['address']['town']
         toAddress = endGeo['address']['road'] + ' ' + endGeo['address']['house_number'] + ',' + endGeo['address'][
