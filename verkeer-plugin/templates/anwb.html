@@ -1,8 +1,9 @@
 <link href="static/css/traffic.css" rel="stylesheet" type="text/css"/>
- <div class="row">
+{% for k, v in blockArray[count]["anwb"].iteritems() %}
+ <div id="traffic_anwb_{{count}}" class="row">
      <div class="x_panel">
         <div class="x_title">
-            <h2>Verkeer</h2>
+            <h2>Verkeer - {{v[0]}}</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -16,27 +17,27 @@
             <div class="clearfix"></div>
         </div>
         <ul class="tab">
-            <li><a href="javascript:void(0)" id="defaultOpen" class="tablinks" onclick="openCat(event, 'routeInfo')">Route</a>
+            <li><a href="javascript:void(0)" id="defaultOpen_{{count}}" class="tablinks" onclick="openCat(event, {{count}}, 'routeInfo_{{count}}')">Route</a>
             </li>
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openCat(event, 'traffic')">Traffic</a></li>
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openCat(event, 'google_tab')">Google maps</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCat(event, {{count}}, 'traffic_{{count}}')">Traffic</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCat(event, {{count}}, 'google_{{count}}')">Google maps</a></li>
         </ul>
-        <div id="routeInfo" class="tabcontent">
-            <div id="route_to" class="routeinfo_to">
-                <div id="route_to_info">
+        <div id="routeInfo_{{count}}" class="tabcontent">
+            <div id="route_to_{{count}}" class="routeinfo_to">
+                <div id="route_to_info_{{count}}">
                     <table class="table">
                         <tbody>
                         <tr>
                             <td style="font-weight: bold;">From:</td>
-                            <td id="from_to"></td>
+                            <td id="from_to_{{count}}"></td>
                         </tr>
                         <tr>
                             <td style="font-weight: bold;">To:</td>
-                            <td id="to_to"></td>
+                            <td id="to_to_{{count}}"></td>
                         </tr>
                         <tr>
                             <td style="font-weight: bold;">Roads:</td>
-                            <td id="roads_to"></td>
+                            <td id="roads_to_{{count}}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -51,28 +52,28 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td id="vertraging_to" class=""></td>
-                        <td id="aankomst_to"></td>
-                        <td id="duur_to"></td>
+                        <td id="vertraging_to_{{count}}" class=""></td>
+                        <td id="aankomst_to_{{count}}"></td>
+                        <td id="duur_to_{{count}}"></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div id="route_back" class="routeinfo_back">
-                <div id="route_back_info">
+            <div id="route_back_{{count}}" class="routeinfo_back">
+                <div id="route_back_info_{{count}}">
                      <table class="table">
                         <tbody>
                         <tr>
                             <td style="font-weight: bold;">From:</td>
-                            <td id="from_back"></td>
+                            <td id="from_back_{{count}}"></td>
                         </tr>
                         <tr>
                             <td style="font-weight: bold;">To:</td>
-                            <td id="to_back"></td>
+                            <td id="to_back_{{count}}"></td>
                         </tr>
                         <tr>
                             <td style="font-weight: bold;">Roads:</td>
-                            <td id="roads_back"></td>
+                            <td id="roads_back_{{count}}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -87,33 +88,33 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td id="vertraging_back" class=""></td>
-                        <td id="aankomst_back"></td>
-                        <td id="duur_back"></td>
+                        <td id="vertraging_back_{{count}}" class=""></td>
+                        <td id="aankomst_back_{{count}}"></td>
+                        <td id="duur_back_{{count}}"></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div id="flitsmeister">
-            <div id="traffic" class="tabcontent">
-              <div id="traffic_radar" class="hide">
+        <div id="flitsmeister_{{count}}">
+            <div id="traffic_{{count}}" class="tabcontent">
+              <div id="traffic_radar_{{count}}" class="hide">
                 <h2>Flitsers</h2>
-                <table id='flitsTable' class="table">
+                <table id='Table_count_{{count}}' class="table">
                     <thead>
                     <tr>
                         <th class="roadCell">Road</th>
-                        <th class="locFlitsCell">Location</th>
-                        <th class="hmpFlitsCell">HMP</th>
+                        <th class="locCell">Location</th>
+                        <th class="hmpCell">HMP</th>
                     </tr>
                     </thead>
-                    <tbody id="flitsbody">
+                    <tbody id="body_{{count}}">
                     </tbody>
                 </table>
               </div>
-              <div id="traffic_files" class="hide">
+              <div id="traffic_files_{{count}}" class="hide">
                 <h2>Files</h2>
-                <table id="filesTable" class="table">
+                <table id="filesTable_count_{{count}}" class="table">
                     <thead>
                     <tr>
                         <th class="roadCell">Road</th>
@@ -123,13 +124,13 @@
                         <th class="distanceCell">Distance</th>
                     </tr>
                     </thead>
-                    <tbody id="filesbody">
+                    <tbody id="filesbody_{{count}}">
                     </tbody>
                 </table>
               </div>
-              <div id="traffic_traject" class="hide">
+              <div id="traffic_traject_{{count}}" class="hide">
                 <h2>Traject Controles</h2>
-                <table id="trajectTable" class="table">
+                <table id="trajectTable_count_{{count}}" class="table">
                     <thead>
                     <tr>
                         <th class="roadCell">Road</th>
@@ -137,17 +138,17 @@
                         <th class="detailTrajectCell">Details</th>
                     </tr>
                     </thead>
-                    <tbody id="trajectbody">
+                    <tbody id="trajectbody_{{count}}">
                     </tbody>
                 </table>
               </div>
             </div>
         </div>
-        <div id="google">
-            <div id="google_tab" class="tabcontent">
+        <div id="google_{{count}}" class="tabcontent">
+            <div id="google_tab_{{count}}">
                 <h2>Google maps</h2>
                 <iframe
-                id="googleLocationIframe"
+                id="googleLocationIframe_{{count}}"
                 width=100%
                 height=450
                 frameborder="0" style="border:0"
@@ -157,18 +158,18 @@
         </div>
     </div>
 </div>
-
+{% endfor %}
 <script type="text/javascript" charset="utf-8">
-    function openCat(evt, catName) {
+    function openCat(evt, count, catName) {
         // Declare all variables
         var i, tabcontent, tablinks;
         // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
+        tabcontent = document.getElementById("traffic_anwb_" + count).getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
         // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
+        tablinks = document.getElementById("traffic_anwb_" + count).getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
@@ -216,26 +217,27 @@ String.prototype.beginsWith = function (string) {
     }
 
     $(document).ready(function () {
-        document.getElementById("defaultOpen").click();
+        document.getElementById("defaultOpen_{{count}}").click();
         function isInArray(array, search) {
             return array.indexOf(search) >= 0;
         }
 
         function rewriteAnwbInfo() {
-            var flitsTable = document.getElementById('flitsTable').getElementsByTagName('tbody')[0];
-            var trajectTable = document.getElementById('trajectTable').getElementsByTagName('tbody')[0];
-            var filesTable = document.getElementById('filesTable').getElementsByTagName('tbody')[0];
+            {% for k, v in blockArray[count]["anwb"].iteritems() %}
+            var Table = document.getElementById('Table_count_{{count}}').getElementsByTagName('tbody')[0];
+            var trajectTable = document.getElementById('trajectTable_count_{{count}}').getElementsByTagName('tbody')[0];
+            var filesTable = document.getElementById('filesTable_count_{{count}}').getElementsByTagName('tbody')[0];
             // Auto update display data divs
-            url = "/api?custom=anwb";
+            url = "/api?custom=anwb&start={{v[1]}}&end={{v[2]}}";
             requestAPI(url, function(d){
                 json = JSON.parse(d);
-               $("#roads_to").html(json.to.roads);
-               $("#from_to").html(json.to["from"]);
-               $("#to_to").html(json.to["to"]);
-               $("#duur_to").html(json.to["duur"]);
-               $("#aankomst_to").html(json.to["aankomst"]);
-               $("#vertraging_to").html(json.to["vertraging"]);
-               el = document.getElementById('vertraging_to');
+               $("#roads_to_{{count}}").html(json.to.roads);
+               $("#from_to_{{count}}").html(json.to["from"]);
+               $("#to_to_{{count}}").html(json.to["to"]);
+               $("#duur_to_{{count}}").html(json.to["duur"]);
+               $("#aankomst_to_{{count}}").html(json.to["aankomst"]);
+               $("#vertraging_to_{{count}}").html(json.to["vertraging"]);
+               el = document.getElementById('vertraging_to_{{count}}');
                if (json.to["vertraging_sec"] >= 600) {
                    el.className = "delay_high";
                }
@@ -243,13 +245,13 @@ String.prototype.beginsWith = function (string) {
                    el.className = "delay_medium";
                }
 
-               $("#roads_back").html(json.back.roads);
-               $("#from_back").html(json.back["from"]);
-               $("#to_back").html(json.back["to"]);
-               $("#duur_back").html(json.back["duur"]);
-               $("#aankomst_back").html(json.back["aankomst"]);
-               $("#vertraging_back").html(json.back["vertraging"]);
-               el = document.getElementById('vertraging_back');
+               $("#roads_back_{{count}}").html(json.back.roads);
+               $("#from_back_{{count}}").html(json.back["from"]);
+               $("#to_back_{{count}}").html(json.back["to"]);
+               $("#duur_back_{{count}}").html(json.back["duur"]);
+               $("#aankomst_back_{{count}}").html(json.back["aankomst"]);
+               $("#vertraging_back_{{count}}").html(json.back["vertraging"]);
+               el = document.getElementById('vertraging_back_{{count}}');
                if (json.back["vertraging_sec"] >= 600) {
                    el.className = "delay_high";
                    console.log("delay High");
@@ -259,9 +261,9 @@ String.prototype.beginsWith = function (string) {
                }
 
 
-               $("#flitsbody tr").remove();
-               $("#trajectbody tr").remove();
-               $("#filesbody tr").remove();
+               $("#body_{{count}} tr").remove();
+               $("#trajectbody_{{count}} tr").remove();
+               $("#filesbody_{{count}} tr").remove();
 
                var roadsArray = json.to.roadsCheck.split(',');
                for (i in json.traffic) {
@@ -271,7 +273,7 @@ String.prototype.beginsWith = function (string) {
                            var celRoad = row.insertCell(0);
                            var celLocation = row.insertCell(1);
                            var celDetails = row.insertCell(2);
-                           var rowid = generateId(json.traffic[i].road);
+                           var rowid = generateId(json.traffic[i].road) + '_{{count}}';
                            celRoad.innerHTML = '<div id="' + rowid + '" class="road">' + json.traffic[i]['road'] + '</div>';
                            addCatRoadClass(json.traffic[i]['road'], rowid);
 
@@ -289,7 +291,7 @@ String.prototype.beginsWith = function (string) {
                            var celDetails = row.insertCell(2);
                            var celDelay = row.insertCell(3);
                            var celLength = row.insertCell(4);
-                           var rowid = generateId(json.traffic[i].road);
+                           var rowid = generateId(json.traffic[i].road) + '_{{count}}';
                            celDelay.innerHTML = json.traffic[i].trafficJams[a].delay;
                            celLength.innerHTML = json.traffic[i].trafficJams[a].distance;
                            celRoad.innerHTML = '<div id="' + rowid + '" class="road">' + json.traffic[i]['road'] + '</div>';
@@ -302,11 +304,11 @@ String.prototype.beginsWith = function (string) {
                            celLocation.innerHTML = json.traffic[i].trafficJams[a].location;
                        }
                        for (a in json.traffic[i].radars) {
-                           var row = flitsTable.insertRow(flitsTable.rows.length);
+                           var row = Table.insertRow(Table.rows.length);
                            var celRoad = row.insertCell(0);
                            var celLocation = row.insertCell(1);
                            var celDetails = row.insertCell(2);
-                           var rowid = generateId(json.traffic[i].road);
+                           var rowid = generateId(json.traffic[i].road) + '_{{count}}';
                            celRoad.innerHTML = '<div id="' + rowid + '" class="road">' + json.traffic[i]['road'] + '</div>';
                            addCatRoadClass(json.traffic[i]['road'], rowid);
                            if (json.traffic[i].radars[a].reason) {
@@ -317,22 +319,24 @@ String.prototype.beginsWith = function (string) {
                            celLocation.innerHTML = json.traffic[i].radars[a].location;
                        }
                    }
+
             }
 
-            var iframe = $('#googleLocationIframe');
+            var iframe = $('#googleLocationIframe_{{count}}');
             var locurl = "https://www.google.com/maps/embed/v1/directions?key=" + googleMapEmbedKey + "&origin=" + json.to["from"] + "&destination=" + json.to["to"];
             iframe.attr('src',locurl);
 
-            if (checkEmpty('flitsbody')) {
-              $('#traffic_radar').addClass('show').removeClass('hide');
+            if (checkEmpty('body_{{count}}')) {
+              $('#traffic_radar_{{count}}').addClass('show').removeClass('hide');
             }
-            if (checkEmpty('filesbody')) {
-              $('#traffic_files').addClass('show').removeClass('hide');
+            if (checkEmpty('filesbody_{{count}}')) {
+              $('#traffic_files_{{count}}').addClass('show').removeClass('hide');
             }
-            if (checkEmpty('trajectbody')) {
-              $('#traffic_traject').addClass('show').removeClass('hide');
+            if (checkEmpty('trajectbody_{{count}}')) {
+              $('#traffic_traject_{{count}}').addClass('show').removeClass('hide');
             }
           });
+       {% endfor %}
         }
 
         rewriteAnwbInfo();
