@@ -1,6 +1,6 @@
 @author=Squandor
 @title=Verkeer
-@version=0.9.6
+@version=0.9.7
 @description=This plugin calculates the driving time from one point to another (ANWB is used). Next to this speedlights are tracked. It also support a Google map with traffic jams.
 @summary=It is possible to have multiple anwb traffics added to one page.
 use the following possible configurations

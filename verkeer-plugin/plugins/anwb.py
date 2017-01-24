@@ -167,82 +167,86 @@ def generateInfo(json_code):
 
 def getData(params={}):
     config = api.getConfig()
-    start = params['start']
-    end = params['end']
     route = {}
+    if 'start' in params and 'end' in params:
+        start = params['start']
+        end = params['end']
 
-    if getStartGeo(start) == None:
-        setStartGeo(start, geocode(start))
-    if getEndGeo(end) == None:
-        setEndGeo(end, geocode(end))
+        if getStartGeo(start) == None:
+            setStartGeo(start, geocode(start))
+        if getEndGeo(end) == None:
+            setEndGeo(end, geocode(end))
 
-    startGeo = getStartGeo(start)
-    endGeo = getEndGeo(end)
+        startGeo = getStartGeo(start)
+        endGeo = getEndGeo(end)
 
-    if (type(startGeo) is dict) and (type(endGeo) is dict):
-        if not 'town' in startGeo['address']:
-            try:
-                startGeo['address']['town'] = startGeo['address']['city']
-            except KeyError:
-                startGeo['address']['town'] = startGeo['address']['suburb']
-        if not 'town' in endGeo['address']:
-            try:
-                endGeo['address']['town'] = endGeo['address']['city']
-            except KeyError:
-                endGeo['address']['town'] = endGeo['address']['suburb']
-        if not 'house_number' in startGeo['address']:
-            startGeo['address']['house_number'] = '1'
-        if not 'house_number' in endGeo['address']:
-            endGeo['address']['house_number'] = '1'
-        if not 'road' in startGeo['address']:
-            startGeo['address']['road'] = startGeo['address']['pedestrian']
-        if not 'road' in endGeo['address']:
-            endGeo['address']['road'] = endGeo['address']['pedestrian']
+        if (type(startGeo) is dict) and (type(endGeo) is dict):
+            if not 'town' in startGeo['address']:
+                try:
+                    startGeo['address']['town'] = startGeo['address']['city']
+                except KeyError:
+                    startGeo['address']['town'] = startGeo['address']['suburb']
+            if not 'town' in endGeo['address']:
+                try:
+                    endGeo['address']['town'] = endGeo['address']['city']
+                except KeyError:
+                    endGeo['address']['town'] = endGeo['address']['suburb']
+            if not 'house_number' in startGeo['address']:
+                startGeo['address']['house_number'] = '1'
+            if not 'house_number' in endGeo['address']:
+                endGeo['address']['house_number'] = '1'
+            if not 'road' in startGeo['address']:
+                startGeo['address']['road'] = startGeo['address']['pedestrian']
+            if not 'road' in endGeo['address']:
+                endGeo['address']['road'] = endGeo['address']['pedestrian']
 
-        setStartGeo(start, startGeo)
-        setEndGeo(end, endGeo)
-        fromAddress = startGeo['address']['road'] + ' ' + startGeo['address']['house_number'] + ',' + startGeo['address'][
-            'postcode'] + ',' + startGeo['address']['town']
-        toAddress = endGeo['address']['road'] + ' ' + endGeo['address']['house_number'] + ',' + endGeo['address'][
-            'postcode'] + ',' + endGeo['address']['town']
-        routeID = createID()
-        startTimeNow = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-        fromd = '"transportMode":"auto","includeTraffic":true,"avoidTolls":false,"avoidTraffic":false,"address":"' + fromAddress + '","location":"' + fromAddress + '","routeType":"fast","departNow":true,"lat":"' + \
-                startGeo['lat'] + '","lon":"' + startGeo[
-                    'lon'] + '","countryCode":"NLD","mapZoom": 17,"excludeTransportType":"","includeTransportType":"Bus,Metro,Tram,Trein,Veerboot"'
-        tod = '"transportMode":"auto","includeTraffic":true,"avoidTolls":false,"avoidTraffic":false,"address":"' + toAddress + '","location":"' + toAddress + '","routeType":"fast","departNow":true,"lat":"' + \
-              endGeo['lat'] + '","lon":"' + endGeo[
-                  'lon'] + '","countryCode":"NLD","mapZoom": 17,"excludeTransportType":"","includeTransportType":"Bus,Metro,Tram,Trein,Veerboot"'
-        u_to = 'http://verkeerstatic.anwb.nl/anwbrouting/anwbrouting/CalculateRoute?routeId=' + routeID + '&route={"id":"' + routeID + '","waypoints":[{' + fromd + '},{' + tod + '}],"language":"NL","startDateTime":"' + startTimeNow + '","timeType":"depart"}'
-        result_to = requestUrl(u_to)
-        routeID = createID()
-        u_back = 'http://verkeerstatic.anwb.nl/anwbrouting/anwbrouting/CalculateRoute?routeId=' + routeID + '&route={"id":"' + routeID + '","waypoints":[{' + tod + '},{' + fromd + '}],"language":"NL","startDateTime":"' + startTimeNow + '","timeType":"depart"}'
-        result_back = requestUrl(u_back)
+            setStartGeo(start, startGeo)
+            setEndGeo(end, endGeo)
+            fromAddress = startGeo['address']['road'] + ' ' + startGeo['address']['house_number'] + ',' + startGeo['address'][
+                'postcode'] + ',' + startGeo['address']['town']
+            toAddress = endGeo['address']['road'] + ' ' + endGeo['address']['house_number'] + ',' + endGeo['address'][
+                'postcode'] + ',' + endGeo['address']['town']
+            routeID = createID()
+            startTimeNow = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+            fromd = '"transportMode":"auto","includeTraffic":true,"avoidTolls":false,"avoidTraffic":false,"address":"' + fromAddress + '","location":"' + fromAddress + '","routeType":"fast","departNow":true,"lat":"' + \
+                    startGeo['lat'] + '","lon":"' + startGeo[
+                        'lon'] + '","countryCode":"NLD","mapZoom": 17,"excludeTransportType":"","includeTransportType":"Bus,Metro,Tram,Trein,Veerboot"'
+            tod = '"transportMode":"auto","includeTraffic":true,"avoidTolls":false,"avoidTraffic":false,"address":"' + toAddress + '","location":"' + toAddress + '","routeType":"fast","departNow":true,"lat":"' + \
+                  endGeo['lat'] + '","lon":"' + endGeo[
+                      'lon'] + '","countryCode":"NLD","mapZoom": 17,"excludeTransportType":"","includeTransportType":"Bus,Metro,Tram,Trein,Veerboot"'
+            u_to = 'http://verkeerstatic.anwb.nl/anwbrouting/anwbrouting/CalculateRoute?routeId=' + routeID + '&route={"id":"' + routeID + '","waypoints":[{' + fromd + '},{' + tod + '}],"language":"NL","startDateTime":"' + startTimeNow + '","timeType":"depart"}'
+            result_to = requestUrl(u_to)
+            routeID = createID()
+            u_back = 'http://verkeerstatic.anwb.nl/anwbrouting/anwbrouting/CalculateRoute?routeId=' + routeID + '&route={"id":"' + routeID + '","waypoints":[{' + tod + '},{' + fromd + '}],"language":"NL","startDateTime":"' + startTimeNow + '","timeType":"depart"}'
+            result_back = requestUrl(u_back)
 
-        json_output_to = json.loads(result_to.content)
-        json_output_back = json.loads(result_back.content)
+            json_output_to = json.loads(result_to.content)
+            json_output_back = json.loads(result_back.content)
 
-        routeInfo_to = generateInfo(json_output_to)
-        routeInfo_to['from'] = fromAddress
-        routeInfo_to['to'] = toAddress
-        routeInfo_back = generateInfo(json_output_back)
-        routeInfo_back['from'] = toAddress
-        routeInfo_back['to'] = fromAddress
-        route['to'] = routeInfo_to
-        route['back'] = routeInfo_back
-        route['traffic'] = getTrafficAndRadar()
-        ajson = simplejson.loads(json.dumps(route))
-        cleaned_json = simplejson.encoder.JSONEncoderForHTML().encode(ajson)
-        return cleaned_json
+            routeInfo_to = generateInfo(json_output_to)
+            routeInfo_to['from'] = fromAddress
+            routeInfo_to['to'] = toAddress
+            routeInfo_back = generateInfo(json_output_back)
+            routeInfo_back['from'] = toAddress
+            routeInfo_back['to'] = fromAddress
+            route['to'] = routeInfo_to
+            route['back'] = routeInfo_back
+            route['traffic'] = getTrafficAndRadar()
+            ajson = simplejson.loads(json.dumps(route))
+            cleaned_json = simplejson.encoder.JSONEncoderForHTML().encode(ajson)
+            return cleaned_json
+        else:
+            routeInfo_to = {}
+            routeInfo_back = {}
+            route = {}
+            routeInfo_to['from'] = startGeo
+            routeInfo_to['to'] = endGeo
+            routeInfo_back['from'] = endGeo
+            routeInfo_back['to'] = startGeo
+            route['to'] = routeInfo_to
+            route['back'] = routeInfo_back
+            route['traffic'] = getTrafficAndRadar()
+            return simplejson.encoder.JSONEncoderForHTML().encode(simplejson.loads(json.dumps(route)))
     else:
-        routeInfo_to = {}
-        routeInfo_back = {}
-        route = {}
-        routeInfo_to['from'] = startGeo
-        routeInfo_to['to'] = endGeo
-        routeInfo_back['from'] = endGeo
-        routeInfo_back['to'] = startGeo
-        route['to'] = routeInfo_to
-        route['back'] = routeInfo_back
         route['traffic'] = getTrafficAndRadar()
         return simplejson.encoder.JSONEncoderForHTML().encode(simplejson.loads(json.dumps(route)))
