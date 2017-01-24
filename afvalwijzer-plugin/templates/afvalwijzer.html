@@ -1,6 +1,6 @@
 <link href="static/css/afvalwijzer.css" rel="stylesheet" type="text/css"/>
 {% for k, v in blockArray[count]["afvalwijzer"].iteritems() %}
-<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-12">
   <div class="x_panel">
   <div class="x_title">
       <h2 id="title_{{count}}">Afvalwijzer - {{ v[1] }} {{ v[2] }}</h2>
@@ -11,8 +11,7 @@
       <div class="clearfix"></div>
   </div>
   <div id="afvalwijzerContainer">
-    <div style="float: left;min-width: 50%;" id="afvalWijzer_{{count}}"></div>
-    <div style="float: left;min-width: 50%;" id="afvalWijzer_firstDate_{{count}}"></div>
+    <div id="afvalWijzer_{{count}}"></div>
   </div>
   <div id="_source"><a href="https://www.mijnafvalwijzer.nl">Source: mijnafvalwijzer.nl</a></div>
   </div>
@@ -33,7 +32,7 @@ $(document).ready(function() {
 
             for (ob in _json['month'][0]['result']) {
               if (_json['month'][0]['result'][ob]['bold'] == 'bold') {
-                var _firstDate = '<div id="' + _json['month'][0]['month-text'] + '_firstDate"><h2 class="bold">First Date:</h2>';
+                var _firstDate = '<div id="' + _json['month'][0]['month-text'] + '_firstDate"><h2 class="bold">Eerst volgende dag:</h2>';
                 _firstDate = _firstDate + '<div class="day">';
                 _firstDate = _firstDate + '<img class="' + _json['month'][0]['result'][ob]['class'] + '">';
                 _firstDate = _firstDate + '<p class="date">' + _json['month'][0]['result'][ob]['date']
@@ -41,7 +40,7 @@ $(document).ready(function() {
                 _firstDate = _firstDate + '</p>';
                 _firstDate = _firstDate + '</div>';
                 _firstDate = _firstDate + '</div>';
-                $('#afvalWijzer_firstDate_{{count}}').append(_firstDate);
+                $('#afvalWijzer_{{count}}').append(_firstDate);
               }
                 _monthDiv = _monthDiv + '<div class="day">';
                 _monthDiv = _monthDiv + '<img class="' + _json['month'][0]['result'][ob]['class'] + '">';
