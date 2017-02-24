@@ -60,7 +60,9 @@ def getData(params={}):
     data = {}
     if params['action'] == 'condition':
         _url = "http://api.wunderground.com/api/" + _api_key + "/conditions/lang:" + _language + "/q/" + params['country'] + "/" + params['loc'] + ".json"
+        _urlForecast = "http://api.wunderground.com/api/" + _api_key + "/forecast/lang:" + _language + "/q/" + params['country'] + "/" + params['loc'] + ".json"
         data['conditions'] = createCondition(requests.get(_url).text)
+        data['forecastTxt'], data['forecastSimple'] = createForecast(requests.get(_urlForecast).text)
     elif params['action'] == 'forecast':
         _url = "http://api.wunderground.com/api/" + _api_key + "/forecast/lang:" + _language + "/q/" + params['country'] + "/" + params['loc'] + ".json"
         data['forecastTxt'], data['forecastSimple'] = createForecast(requests.get(_url).text)
