@@ -59,11 +59,12 @@ $(document).ready(function() {
                     } else {
                       if ("{{v[0]}}" == 'condition') {
                         var overalDiv = '';
+                        console.log(_json['forecastSimple']);
                         overalDiv = overalDiv + '<div class="flatWeatherPlugin full">';
                         overalDiv = overalDiv + '<h2>{{v[1]}}</h2>';
                         overalDiv = overalDiv + '<div class="wiToday">'
                         overalDiv = overalDiv + '<div class="wiIconGroup">';
-                        overalDiv = overalDiv + '<div class=""><img src="' + _json['conditions']['current_observation'].icon_url + '"></div>';
+                        overalDiv = overalDiv + '<div class=""><img style="width: 50%; " src="' + _json['conditions']['current_observation'].icon_url + '"></div>';
                         overalDiv = overalDiv + '<p class="wiText">' + _json['conditions']['current_observation']['icon'] + '</p>';
                         overalDiv = overalDiv + '</div>';
                         overalDiv = overalDiv + '<p class="wiTemperature">' + _json['conditions']['current_observation']['temp_c'] + '<sup>°C</sup></p>';
@@ -71,12 +72,14 @@ $(document).ready(function() {
                         overalDiv = overalDiv + '<p class="wiDay">'+ _json['todayWeekday'] + '</p>';
                         overalDiv = overalDiv + '   </ul>';
                         overalDiv = overalDiv + '   <ul class="temp">';
-                        overalDiv = overalDiv + '      <li>Max : ' + _json['conditions']['current_observation']['temp_c'] + '<sup>°C</sup></li>';
-                        overalDiv = overalDiv + '      <li>Min : ' + _json['conditions']['current_observation']['feelslike_c'] + '<sup>°C</sup></li>';
+                        overalDiv = overalDiv + '      <li>Max : ' + _json['forecastSimple'][0].high.celsius + '<sup>°C</sup></li>';
+                        overalDiv = overalDiv + '      <li>Min : ' + _json['forecastSimple'][0].low.celsius + '<sup>°C</sup></li>';
+                        overalDiv = overalDiv + '      <li>Feel : ' + _json['conditions']['current_observation']['feelslike_c'] + '<sup>°C</sup></li>';
                         overalDiv = overalDiv + '   </ul>';
                         overalDiv = overalDiv + '   <ul class="atmosphere">';
                         overalDiv = overalDiv + '      <li class="wi humidity">' + _json['conditions']['current_observation']['relative_humidity'] + '</li>';
-                        overalDiv = overalDiv + '      <li class="wi wind">' + _json['conditions']['current_observation']['wind_dir'] + ' ' + _json['conditions']['current_observation']['wind_gust_kph'] + ' km/h</li>';
+                        overalDiv = overalDiv + '      <li class="wi wind">' + _json['conditions']['current_observation']['wind_dir'] + ' ' + _json['conditions']['current_observation']['wind_gust_kph'] + 'km/h</li>';
+                        overalDiv = overalDiv + '      <li class="wx-value">Rainfall: ' + _json['conditions']['current_observation']['precip_today_in'] + ' mm' + '</li>';
                         overalDiv = overalDiv + '   </ul>';
                         overalDiv = overalDiv + '  </div>';
                         overalDiv = overalDiv + '</div>';
