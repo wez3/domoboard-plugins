@@ -49,17 +49,14 @@ $(document).ready(function() {
            	// Auto update display data divs
             {% for k, v in blockArray[count]["wunderground"].iteritems() %}
                 url = "/api?custom=wunderground&loc=" + parseHtmlEntities("{{v[1]}}") + "&country={{ v[2] }}&action={{v[0]}}";
-                console.log(url);
                 requestAPI(url, function(d){
                   // forecast text:
                   _json = JSON.parse(d);
-                  console.log(_json);
                     if ( $( "#conToday-"  + _json['dateIDToday'] + "_{{count}}").length ) {
                       console.log('el exists');
                     } else {
                       if ("{{v[0]}}" == 'condition') {
                         var overalDiv = '';
-                        console.log(_json['forecastSimple']);
                         overalDiv = overalDiv + '<div class="flatWeatherPlugin full">';
                         overalDiv = overalDiv + '<h2>{{v[1]}}</h2>';
                         overalDiv = overalDiv + '<div class="wiToday">'
@@ -79,7 +76,7 @@ $(document).ready(function() {
                         overalDiv = overalDiv + '   <ul class="atmosphere">';
                         overalDiv = overalDiv + '      <li class="wi humidity">' + _json['conditions']['current_observation']['relative_humidity'] + '</li>';
                         overalDiv = overalDiv + '      <li class="wi wind">' + _json['conditions']['current_observation']['wind_dir'] + ' ' + _json['conditions']['current_observation']['wind_gust_kph'] + 'km/h</li>';
-                        overalDiv = overalDiv + '      <li class="wx-value">Rainfall: ' + _json['conditions']['current_observation']['precip_today_in'] + ' mm' + '</li>';
+                        overalDiv = overalDiv + '      <li class="wx-value">Rainfall: ' + _json['conditions']['current_observation']['precip_today_string'] + '</li>';
                         overalDiv = overalDiv + '   </ul>';
                         overalDiv = overalDiv + '  </div>';
                         overalDiv = overalDiv + '</div>';
