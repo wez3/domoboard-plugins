@@ -3,6 +3,7 @@
 from pyicloud import PyiCloudService
 import datetime
 import calendar
+import json
 import modules.api as api
 
 def init():
@@ -33,4 +34,4 @@ def getData(params={}):
         ob['location'] = i['location']
         ob['weekday'] = (datetime.datetime.strptime(ob['startDate'], '%d/%m/%Y %H:%M').weekday()) % 7
         weekEvents.append(ob)
-    return sorted(weekEvents, key=lambda x: (x['weekday'], x['startTime']))
+    return json.dumps(sorted(weekEvents, key=lambda x: (x['weekday'], x['startTime'])))
