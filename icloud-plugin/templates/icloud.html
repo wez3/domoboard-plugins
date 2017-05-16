@@ -58,15 +58,15 @@ $(document).ready(function() {
 			if (lastday != obj.day) {
 				celDay.innerHTML = obj.day;
 				lastday = obj.day;
-			}			
+			}
 			celStart.innerHTML = obj.startTime + ' - ' + obj.endTime;
-			celEvent.innerHTML = obj.event;
+			celEvent.innerHTML = obj.event + obj.location;
 			if (obj.day == day) {
 			    row.className = 'today';
             }
 		});
 			    });
-		
+
         }
         rewriteCalendarInfo();
         setInterval(rewriteCalendarInfo,9000);
