@@ -31,7 +31,10 @@ def getData(params={}):
         ob['endTime'] = datetime.datetime.strptime(ob['end'], "%Y-%m-%d %H:%M").strftime('%H:%M')
         ob['day'] = calendar.day_name[datetime.datetime.strptime(ob['startDate'], '%d/%m/%Y %H:%M').weekday()]
         ob['event'] = i['title']
-        ob['location'] = i['location']
+        if i['location']:
+            ob['location'] = ', ' + i['location']
+        else:
+            ob['location'] = ''
         ob['weekday'] = (datetime.datetime.strptime(ob['startDate'], '%d/%m/%Y %H:%M').weekday()) % 7
         weekEvents.append(ob)
     return json.dumps(sorted(weekEvents, key=lambda x: (x['weekday'], x['startTime'])))
