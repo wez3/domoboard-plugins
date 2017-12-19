@@ -5,6 +5,7 @@ import requests
 import string
 import random
 import datetime
+import time
 from natsort import natsorted
 from operator import itemgetter
 import modules.api as api
@@ -19,11 +20,16 @@ def init():
 
 
 def geocode(adres):
-    g = geocoder.osm(adres)
     try:
-        return list(g)[0]
-    except IndexError:
-        return "Error in creating the location from address, maybe an typo in you're address?"
+        g = geocoder.osm(adres)
+        if type(g.json) is None:
+            return None
+        else:
+            return g.json['raw']
+    except Exception as e:
+        print e
+        time.sleep(1)
+        return geocode(adres)
 
 def setStartGeo(adres, s):
     global startGeo
